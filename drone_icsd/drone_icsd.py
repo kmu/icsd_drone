@@ -37,7 +37,10 @@ class DroneIcsd(AbstractDrone):
             # Check whether composition from metadata and composition from
             # cif match.
 
-            data = []
+            data = {
+                "_does_match_composition": self.does_match_composition(
+                    self.strct.composition.formula, self.metadata['chemical_formula'])
+            }
             # Compositional match
             # print(self.metadata['authors'])
             snl = StructureNL(
