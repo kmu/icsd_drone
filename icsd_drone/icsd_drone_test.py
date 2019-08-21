@@ -7,6 +7,7 @@ from monty.serialization import dumpfn
 
 class TestIcsdDrone(unittest.TestCase):
     def setUp(self):
+        os.system('rm -rf test_files/out; mkdir -p test_files/out')
         self.drone = IcsdDrone()
         self.test_dir = os.path.join(os.path.dirname(__file__), '..', 'test_files')
 
@@ -28,7 +29,7 @@ class TestIcsdDrone(unittest.TestCase):
         # with open(, "w") as f:
             # json.dump(entry, f)
             # mo
-        dumpfn(entry, "tmp/test.json")
+        dumpfn(entry, "test_files/out/test.json")
 
 
 

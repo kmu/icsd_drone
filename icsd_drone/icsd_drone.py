@@ -45,6 +45,8 @@ class IcsdDrone(AbstractDrone):
                 "_doi": self.metadata['doi']
             }
 
+            data['_icsd_metadata'] = self.metadata
+
             found_bib, bibtex = get_bib_from_doi(self.metadata['doi'])
             if not found_bib:
                 bibtex = ""
@@ -53,7 +55,7 @@ class IcsdDrone(AbstractDrone):
             snl = StructureNL(
                 struct_or_mol=self.strct,
                 authors="Koki Muraoka <kmuraoka@lbl.gov>",
-                projects="ICSD {}".format(self.metadata["ICSD_version"]),
+                projects=["ICSD", self.metadata['ICSD_version']],
                 data=data,
                 references=bibtex,
                 # history=history,
