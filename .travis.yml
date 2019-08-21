@@ -1,0 +1,16 @@
+language: python
+python:
+  - "3.6"
+env:
+  global:
+install:
+  - pip install -e
+  - pip install --quiet --ignore-installed -r requirements.txt
+script:
+  - pytest icsd_drone
+notifications:
+  email:
+    recipients:
+      - kmuraoka@lbl.gov
+    on_success: change
+    on_failure: always
