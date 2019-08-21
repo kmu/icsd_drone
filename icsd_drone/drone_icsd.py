@@ -39,7 +39,9 @@ class DroneIcsd(AbstractDrone):
 
             data = {
                 "_does_match_composition": self.does_match_composition(
-                    self.strct.composition.formula, self.metadata['chemical_formula'])
+                    self.strct.composition.formula, self.metadata['chemical_formula']),
+                "_is_theoretical": self.metadata['theoretical_calculation'],
+                "_doi": self.metadata['doi']
             }
             # Compositional match
             # print(self.metadata['authors'])
