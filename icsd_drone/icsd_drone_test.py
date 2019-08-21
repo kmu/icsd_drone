@@ -1,10 +1,13 @@
 import unittest
-from drone_icsd.drone_icsd import DroneIcsd
+from icsd_drone.icsd_drone import IcsdDrone
 import os
+import json
+from monty.serialization import dumpfn
 
-class TestDroneIcsd(unittest.TestCase):
+
+class TestIcsdDrone(unittest.TestCase):
     def setUp(self):
-        self.drone = DroneIcsd()
+        self.drone = IcsdDrone()
         self.test_dir = os.path.join(os.path.dirname(__file__), '..', 'test_files')
 
     def test_valid_paths(self):
@@ -22,8 +25,14 @@ class TestDroneIcsd(unittest.TestCase):
         self.drone.assimilate("test_files/CHA.cif")
         entry = self.drone.assimilate("test_files/CHA.json")
 
+        # with open(, "w") as f:
+            # json.dump(entry, f)
+            # mo
+        dumpfn(entry, "tmp/test.json")
+
+
 
     def test_to_from_dict(self):
         d = self.drone.as_dict()
-        drone = DroneIcsd.from_dict(d)
-        self.assertEqual(type(drone), DroneIcsd)
+        drone = IcsdDrone.from_dict(d)
+        self.assertEqual(type(drone), IcsdDrone)

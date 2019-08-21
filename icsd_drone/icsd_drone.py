@@ -6,9 +6,10 @@ from pymatgen.util.provenance import StructureNL
 from pymatgen import Structure, Composition
 import json
 from datetime import datetime
+from doi2bib.crossref import get_bib_from_doi
 
 
-class DroneIcsd(AbstractDrone):
+class IcsdDrone(AbstractDrone):
 
     def __init__(self):
         self.has_metadata = False
@@ -43,17 +44,20 @@ class DroneIcsd(AbstractDrone):
                 "_is_theoretical": self.metadata['theoretical_calculation'],
                 "_doi": self.metadata['doi']
             }
+
+            found_bib, bibtex = get_bib_from_doi(self.metadata['doi'])
+            if not found_bib:
+                bibtex = ""
             # Compositional match
             # print(self.metadata['authors'])
             snl = StructureNL(
                 struct_or_mol=self.strct,
                 authors="Koki Muraoka <kmuraoka@lbl.gov>",
                 projects="ICSD {}".format(self.metadata["ICSD_version"]),
-                references="",
                 data=data,
+                references=bibtex,
                 # history=history,
                 created_at=datetime.now()
-                # authors=[author.strip() for author in self.metadata['authors'].split(";")]
             )
 
             return(snl)
