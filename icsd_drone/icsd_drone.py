@@ -35,9 +35,6 @@ class IcsdDrone(AbstractDrone):
 
         if self.has_metadata and self.has_cif:
 
-            # Check whether composition from metadata and composition from
-            # cif match.
-
             data = {
                 "_does_match_composition": self.does_match_composition(
                     self.strct.composition.formula, self.metadata['chemical_formula']),
@@ -50,8 +47,7 @@ class IcsdDrone(AbstractDrone):
             found_bib, bibtex = get_bib_from_doi(self.metadata['doi'])
             if not found_bib:
                 bibtex = ""
-            # Compositional match
-            # print(self.metadata['authors'])
+
             snl = StructureNL(
                 struct_or_mol=self.strct,
                 authors="Koki Muraoka <kmuraoka@lbl.gov>",
