@@ -4,7 +4,7 @@ python:
 env:
   global:
 install:
-  - pip install -e
+  - pip install -e .
   - pip install --quiet --ignore-installed -r requirements.txt
 script:
   - pytest icsd_drone
