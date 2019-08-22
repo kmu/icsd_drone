@@ -21,7 +21,7 @@ if __name__ == "__main__":
         package_data={},
         zip_safe=False,
         install_requires=[
-            'pymatgen', 'emmet', 'monty', 'doi2bib'
+            'pymatgen', 'emmet', 'monty', 'doi2bib', 'pymongo'
         ],
         classifiers=["Programming Language :: Python :: 3",
                      "Programming Language :: Python :: 3.6",

@@ -8,6 +8,7 @@ import json
 from datetime import datetime
 from doi2bib.crossref import get_bib_from_doi
 from emmet.borg.icsd_to_mongo import icsdDrone as EmmetIcsdDrone
+from pymongo import MongoClient
 
 
 class IcsdDrone2019(AbstractDrone):
