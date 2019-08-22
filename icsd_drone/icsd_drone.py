@@ -19,26 +19,39 @@ class IcsdDrone2019(AbstractDrone):
 
         return(c1.almost_equals(c2))
 
-    def assimilate(self, path):
-        if ".json" == Path(path).suffix:
+    def assimilate(self, path, dbhost='localhost', dbport = 27017, dbname='ICSD', collection_name='ICSD_files', store_mongo=True):
+        '''
+        path: directory that stores cif file and metadata file
+        '''
+        if store_mongo:
+            client = MongoClient(dbhost,dbport)
+            db = client[dbname]
+            col = db[collection_name]
 
-            with open(path) as f:
-                self.metadata = json.load(f)
+        classic_drone = EmmetIcsdDrone()
+        classic_data = classic_drone.assimilate(
+            store_mongo=False
+        )
 
-            self.has_metadata = True
+        dumpfn(classic_data, "classic.json")
 
-        elif ".cif" == Path(path).suffix:
-            self.strct = Structure.from_file(filename=path)
-            self.has_cif = True
+        file_ID = path.split('/')[-1]
+        jsonpath = "{0}/{1}.json".format(path, file_ID)
 
-        if self.has_metadata and self.has_cif:
+        with open(jsonpath) as f:
+            self.metadata = json.load(f)
+
 
             data = {
                 "_does_match_composition": self.does_match_composition(
                     self.strct.composition.formula, self.metadata['chemical_formula']),
                 "_is_theoretical": self.metadata['theoretical_calculation'],
-                "_doi": self.metadata['doi']
+                "_doi": self.metadata['doi'],
             }
+
+            important_entries = [
+                "doi", "abstract", "temperature", "collection_code",
+            ]
 
             data['_icsd_metadata'] = self.metadata
 
@@ -46,23 +59,24 @@ class IcsdDrone2019(AbstractDrone):
             if not found_bib:
                 bibtex = ""
 
-            snl = StructureNL(
-                struct_or_mol=self.strct,
-                authors="Koki Muraoka <kmuraoka@lbl.gov>",
-                projects=["ICSD", self.metadata['ICSD_version']],
-                data=data,
-                references=bibtex,
-                # history=history,
-                created_at=datetime.now()
-            )
+        # return()
 
-            return(snl)
-
-        return()
+        if 'snl' in data:
+            if store_mongo:
+                col.update_one({'icsd_id': int(file_ID)},{'$set': data},upsert=True)
 
     def get_valid_paths(self, path):
-        (parent, subdirs, files) = path
+        '''
+        Even if there is no corresponding metadata,
+        parsing goes on.
+        '''
+        classic_drone = EmmetIcsdDrone()
+        return(classic_drone.get_valid_paths(path))
 
-        for pattern in ["*.json", "*.cif"]:
-            if len(glob.glob(os.path.join(parent, pattern))) > 0:
-                return([parent])
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()
