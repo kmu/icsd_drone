@@ -29,39 +29,19 @@ class IcsdDrone2019(AbstractDrone):
             col = db[collection_name]
 
         classic_drone = EmmetIcsdDrone()
-        classic_data = classic_drone.assimilate(
-            store_mongo=False
+        data = classic_drone.assimilate(
+            path, store_mongo=False
         )
 
         file_ID = path.split('/')[-1]
         jsonpath = "{0}/{1}.json".format(path, file_ID)
 
         with open(jsonpath) as f:
-            self.metadata = json.load(f)
+            icsd_web_metadata = json.load(f)
 
-
-            data = {
-                "_does_match_composition": self.does_match_composition(
-                    self.strct.composition.formula, self.metadata['chemical_formula']),
-                "_is_theoretical": self.metadata['theoretical_calculation'],
-                "_doi": self.metadata['doi'],
-            }
-
-            important_entries = [
-                "doi", "abstract", "temperature", "collection_code",
-            ]
-
-            data['_icsd_metadata'] = self.metadata
-
-            found_bib, bibtex = get_bib_from_doi(self.metadata['doi'])
-            if not found_bib:
-                bibtex = ""
-
-        # return()
-
-        if 'snl' in data:
-            if store_mongo:
-                col.update_one({'icsd_id': int(file_ID)},{'$set': data},upsert=True)
+            data["_does_match_composition"] = self.does_match_composition(
+                data['formula_reduced'], icsd_web_metadata['chemical_formula'])
+            data["_icsd_web_metadata"] = icsd_web_metadata
 
     def get_valid_paths(self, path):
         '''
