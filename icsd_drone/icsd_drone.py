@@ -7,13 +7,11 @@ from pymatgen import Structure, Composition
 import json
 from datetime import datetime
 from doi2bib.crossref import get_bib_from_doi
+from monty.serialization import dumpfn
+from emmet.borg.icsd_to_mongo import icsdDrone as EmmetIcsdDrone
 
 
-class IcsdDrone(AbstractDrone):
-
-    def __init__(self):
-        self.has_metadata = False
-        self.has_cif = False
+class IcsdDrone2019(AbstractDrone):
 
     def does_match_composition(self, formula1, formula2):
         c1 = Composition(formula1)
