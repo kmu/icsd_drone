@@ -50,7 +50,7 @@ class IcsdDrone2019(AbstractDrone):
             # Possible implicit Hydrogen
             icsd_web_metadata["_does_match_composition"] = self.does_match_composition(
                 data['formula_reduced'], icsd_web_metadata['chemical_formula'])
-            data["_icsd_web_metadata"] = icsd_web_metadata
+            data["icsd_web_metadata"] = icsd_web_metadata
 
         return(data)
 

@@ -1,5 +1,17 @@
 {
-  "_icsd_web_metadata": {
+  "chem_name": "Nxotetratellurium dichromate(III)",
+  "chemsys": "Fe-N-Si",
+  "elements": [
+    "Fe",
+    "N",
+    "Si"
+  ],
+  "formula": "Fe4 Si8 N22",
+  "formula_anonymous": "A2B4C11",
+  "formula_reduced": "Fe2Si4N11",
+  "formula_reduced_abc": "Fe2 N11 Si4",
+  "icsd_id": 999999999,
+  "icsd_web_metadata": {
     "AB_formula": "AB2",
     "ICSD_version": "Version 4.2.9 (build 29199513-1424) - Data Release 2919.1",
     "NMR_data_available": false,
@@ -66,18 +78,6 @@
     "wyckoff_sequence": "e8 d",
     "x_ray": true
   },
-  "chem_name": "Nxotetratellurium dichromate(III)",
-  "chemsys": "Fe-N-Si",
-  "elements": [
-    "Fe",
-    "N",
-    "Si"
-  ],
-  "formula": "Fe4 Si8 N22",
-  "formula_anonymous": "A2B4C11",
-  "formula_reduced": "Fe2Si4N11",
-  "formula_reduced_abc": "Fe2 N11 Si4",
-  "icsd_id": 999999999,
   "is_ordered": true,
   "is_valid": true,
   "nelements": 3,
@@ -104,7 +104,7 @@
       "created_at": {
         "@class": "datetime",
         "@module": "datetime",
-        "string": "2019-08-22 20:10:50.002759"
+        "string": "2019-08-22 20:15:25.105012"
       },
       "history": [
         {
