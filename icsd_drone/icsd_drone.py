@@ -7,7 +7,6 @@ from pymatgen import Structure, Composition
 import json
 from datetime import datetime
 from doi2bib.crossref import get_bib_from_doi
-from monty.serialization import dumpfn
 from emmet.borg.icsd_to_mongo import icsdDrone as EmmetIcsdDrone
 
 
@@ -32,8 +31,6 @@ class IcsdDrone2019(AbstractDrone):
         classic_data = classic_drone.assimilate(
             store_mongo=False
         )
-
-        dumpfn(classic_data, "classic.json")
 
         file_ID = path.split('/')[-1]
         jsonpath = "{0}/{1}.json".format(path, file_ID)
