@@ -36,12 +36,23 @@ class IcsdDrone2019(AbstractDrone):
         file_ID = path.split('/')[-1]
         jsonpath = "{0}/{1}.json".format(path, file_ID)
 
+
+
         with open(jsonpath) as f:
+
+            data["snl"]["about"]["authors"] += [{
+                "name": "Koki Muraoka",
+                "email": "kmuraoka@lbl.gov"
+            }]
+
             icsd_web_metadata = json.load(f)
 
-            data["_does_match_composition"] = self.does_match_composition(
+            # Possible implicit Hydrogen
+            icsd_web_metadata["_does_match_composition"] = self.does_match_composition(
                 data['formula_reduced'], icsd_web_metadata['chemical_formula'])
             data["_icsd_web_metadata"] = icsd_web_metadata
+
+        return(data)
 
     def get_valid_paths(self, path):
         '''
