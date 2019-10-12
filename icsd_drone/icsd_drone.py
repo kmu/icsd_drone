@@ -28,7 +28,7 @@ class IcsdDrone2019(AbstractDrone):
             db = client[dbname]
             col = db[collection_name]
 
-        classic_drone = EmmetIcsdDrone()
+        classic_drone = EmmetIcsdDrone()   # Modify this!!!! -> StrucrtureNL -> Structure
         data = classic_drone.assimilate(
             path, store_mongo=False
         )
@@ -36,19 +36,31 @@ class IcsdDrone2019(AbstractDrone):
         file_ID = path.split('/')[-1]
         jsonpath = "{0}/{1}.json".format(path, file_ID)
 
+        # Verify paths!!
+        # If possible
 
+        # SNL's bibtex things:
 
         with open(jsonpath) as f:
 
-            data["snl"]["about"]["authors"] += [{
-                "name": "Koki Muraoka",
-                "email": "kmuraoka@lbl.gov"
-            }]
+            # data["snl"]["about"]["authors"] += [{
+            #     "name": "Koki Muraoka",
+            #     "email": "kmuraoka@lbl.gov"
+            # }]
+
+            cifmetatadata
+
+            metadata d
+
+
+            is_valid <- False
+
+            # db == medatada.id
 
             icsd_web_metadata = json.load(f)
 
             # Possible implicit Hydrogen
-            icsd_web_metadata["_does_match_composition"] = self.does_match_composition(
+            icsd_web_metadata["_does_match_composition"] = self._does_match_composition(
                 data['formula_reduced'], icsd_web_metadata['chemical_formula'])
             data["icsd_web_metadata"] = icsd_web_metadata
 
